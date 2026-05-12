@@ -1,0 +1,68 @@
+SELECT
+  assignment_group,
+  COUNT(DISTINCT user_id) AS users,
+  COUNT(DISTINCT session_id) AS sessions,
+  AVG(duration_min) AS avg_session_duration,
+  AVG(continued_30min) AS session_30min_rate,
+  AVG(saves * 1.0 / NULLIF(tracks_played, 0)) AS save_rate,
+  AVG(CASE WHEN exited_to_search = 1 THEN 1.0 ELSE 0.0 END) AS post_session_search_rate,
+  AVG(recommendation_diversity_score) AS avg_recommendation_diversity,
+  AVG(recommendation_override_count) AS avg_override_count
+FROM session_listening_behavior
+GROUP BY assignment_group;
+
+SELECT
+  s.assignment_group,
+  q.search_category,
+  COUNT(*) AS searches,
+  COUNT(DISTINCT q.user_id) AS users_searching,
+  AVG(q.query_specificity_score) AS avg_query_specificity,
+  AVG(q.search_led_to_play) AS search_to_play_rate,
+  AVG(q.search_led_to_save) AS search_to_save_rate
+FROM post_interaction_search_behavior q
+JOIN session_listening_behavior s
+  ON q.session_id = s.session_id
+GROUP BY s.assignment_group, q.search_category
+ORDER BY s.assignment_group, searches DESC;
+
+SELECT
+  assignment_group,
+  listener_cohort,
+  COUNT(DISTINCT user_id) AS users,
+  AVG(retained_day_7) AS retained_day_7_rate,
+  AVG(retained_day_14) AS retained_day_14_rate,
+  AVG(retained_day_28) AS retained_day_28_rate,
+  AVG(total_artist_follows * 1.0 / NULLIF(total_new_artists, 0)) AS artist_follow_conversion_rate,
+  AVG(post_search_sessions) AS avg_post_search_sessions
+FROM retention_outcomes
+GROUP BY assignment_group, listener_cohort
+ORDER BY listener_cohort, assignment_group;
+
+WITH user_search_intent AS (
+  SELECT
+    user_id,
+    assignment_group,
+    COUNT(*) AS post_search_count,
+    SUM(CASE WHEN search_category = 'different_mood_energy' THEN 1 ELSE 0 END) AS mood_shift_searches,
+    SUM(CASE WHEN search_category = 'artist_specific_recovery' THEN 1 ELSE 0 END) AS artist_recovery_searches,
+    SUM(CASE WHEN search_category = 'more_niche_genre' THEN 1 ELSE 0 END) AS niche_searches
+  FROM post_interaction_search_behavior
+  GROUP BY user_id, assignment_group
+)
+SELECT
+  u.assignment_group,
+  u.listener_cohort,
+  CASE
+    WHEN COALESCE(i.post_search_count, 0) >= 5 THEN 'high_unmet_intent_signal'
+    WHEN COALESCE(i.post_search_count, 0) BETWEEN 2 AND 4 THEN 'moderate_unmet_intent_signal'
+    ELSE 'low_unmet_intent_signal'
+  END AS unmet_intent_segment,
+  COUNT(DISTINCT u.user_id) AS users,
+  AVG(r.retained_day_28) AS retained_day_28_rate
+FROM user_assignment u
+LEFT JOIN user_search_intent i
+  ON u.user_id = i.user_id
+LEFT JOIN retention_outcomes r
+  ON u.user_id = r.user_id
+GROUP BY u.assignment_group, u.listener_cohort, unmet_intent_segment
+ORDER BY u.listener_cohort, unmet_intent_segment;
