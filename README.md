@@ -1,92 +1,64 @@
-# Spotify AI DJ Mock Product Evaluation Dataset
+# Spotify AI DJ Product Evaluation
 
-This folder contains synthetic CSV datasets, SQL examples, Python analysis code, and portfolio-ready graphics for a mock product evaluation case study.
+A simulated product analytics and human-centered AI evaluation project modeling how conversational music recommendation systems can be evaluated through listener behavior, post-interaction search signals, retention outcomes, recommendation quality metrics, and behavioral engagement patterns.
 
-## Important Disclaimer
+This project was created as a mock evaluation framework using synthetic data only. It does not use or represent internal Spotify data, systems, or proprietary platform analytics.
 
-All datasets, metrics, charts, results, and modeled outputs are fully synthetic and created only to demonstrate experimental design, analytical methodology, product evaluation thinking, behavioral analytics workflows, and recommendation-system evaluation. These files do not contain internal Spotify data and do not represent real Spotify reporting.
+---
 
-## Case Study Focus
+## Project Focus
 
-Research question:
-What do listeners search for immediately after exiting conversational recommendation environments like Spotify AI DJ, and what do those post-interaction behaviors reveal about unmet listener intent, recommendation-system gaps, personalization limitations, and emotional mismatch within AI-guided music experiences?
+This case study explores how generative music recommendation systems can be evaluated beyond engagement volume alone by analyzing recommendation trust, discovery quality, conversational friction, listener intent satisfaction, and long-term retention behavior.
 
-## Synthetic CSV Datasets
+Core research question:
 
-1. `user_assignment.csv`
-   - User-level randomized assignment table.
-   - Includes treatment/control group, listener cohort, market, device, and baseline behavior.
+> What do listeners search for immediately after exiting conversational recommendation environments, and what do those post-interaction behaviors reveal about unmet listener intent, recommendation-system gaps, personalization limitations, and emotional mismatch?
 
-2. `session_listening_behavior.csv`
-   - Session-level listening behavior.
-   - Includes duration, skips, saves, playlist adds, artist follows, diversity score, override count, and post-session search flag.
+---
 
-3. `post_interaction_search_behavior.csv`
-   - Search behavior immediately after recommendation interaction.
-   - Includes search category, specificity score, and downstream conversion signals.
+## Methods Used
 
-4. `prompt_voice_request_logs.csv`
-   - Treatment-group prompt and voice request interaction logs.
-   - Includes prompt type, success flag, reformulation flag, coherence score, and latency.
+- Product analytics
+- A/B testing
+- Exploratory data analysis
+- KPI development
+- SQL aggregation workflows
+- Python-based analytical workflows
+- Feature engineering
+- Cohort analysis
+- Retention modeling
+- Logistic regression
+- Recommendation-system evaluation
+- Human-centered AI evaluation
+- Behavioral signal detection
+- Conversational AI quality analysis
 
-5. `retention_outcomes.csv`
-   - User-level retention outcomes for day 7, day 14, and day 28.
+---
 
-6. `artist_discovery_outcomes.csv`
-   - Artist discovery and conversion signals.
-   - Includes new artist exposure, follows, saves, playlist adds, and discovery quality index.
+## Synthetic Datasets
 
-7. `final_model_ready_dataset.csv`
-   - Joined analytical table for modeling and feature evaluation.
+The project uses fully synthetic datasets designed to simulate large-scale recommendation-system evaluation workflows.
 
-## Mock Data Pipeline
+### Included datasets
 
-Raw event logs:
-- user assignment
-- sessions
-- searches
-- prompts
-- retention
-- artist discovery
+- `user_assignment.csv`
+- `session_listening_behavior.csv`
+- `post_interaction_search_behavior.csv`
+- `prompt_voice_request_logs.csv`
+- `retention_outcomes.csv`
+- `artist_discovery_outcomes.csv`
 
-Cleaning steps:
-- standardize event-level identifiers
-- join user/session/search/prompt tables
-- handle null prompt/search fields
-- derive session-level behavioral features
+---
 
-Metric calculations:
-- save rate
-- skip rate
-- artist-follow rate
-- post-session search frequency
-- 30-minute continuation rate
-- recommendation diversity score
-- prompt success and reformulation rates
+## Repository Structure
 
-Joined analytical table:
-- `final_model_ready_dataset.csv`
-
-Model-ready outputs:
-- `analysis_ab_test_summary.csv`
-- `analysis_statistical_tests.csv`
-- `analysis_retention_model_coefficients.csv`
-- `analysis_cohort_summary.csv`
-- `analysis_signal_detection_daily.csv`
-- `analysis_recommendation_system_evaluation.csv`
-
-## Code
-
-- `code/spotify_ai_dj_mock_sql_examples.sql`
-- `code/spotify_ai_dj_mock_python_analysis.py`
-
-## Portfolio Graphics
-
-- `ab_test_results_dashboard.png`
-- `post_interaction_search_map.png`
-- `retention_curve.png`
-- `cohort_comparison_table.png`
-- `recommendation_gap_signal_chart.png`
-- `feature_health_monitoring_dashboard.png`
-
-Generated on: 2026-05-11
+```text
+spotify-ai-dj-product-evaluation
+├── data
+├── outputs
+├── sql
+├── src
+├── visuals
+├── README.md
+├── LICENSE
+└── .gitignore
