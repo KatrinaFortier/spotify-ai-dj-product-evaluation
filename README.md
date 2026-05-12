@@ -2,6 +2,8 @@
 
 A simulated product analytics and human-centered AI evaluation project modeling how conversational music recommendation systems can be evaluated through listener behavior, post-interaction search signals, retention outcomes, recommendation quality metrics, and behavioral engagement patterns.
 
+Built using Python, SQL, pandas, NumPy, SciPy, scikit-learn, and behavioral analytics workflows.
+
 This project was created as a mock evaluation framework using synthetic data only. It does not use or represent internal Spotify data, systems, or proprietary platform analytics.
 
 ---
@@ -32,21 +34,6 @@ Core research question:
 - Human-centered AI evaluation
 - Behavioral signal detection
 - Conversational AI quality analysis
-
----
-
-## Synthetic Datasets
-
-The project uses fully synthetic datasets designed to simulate large-scale recommendation-system evaluation workflows.
-
-### Included datasets
-
-- `user_assignment.csv`
-- `session_listening_behavior.csv`
-- `post_interaction_search_behavior.csv`
-- `prompt_voice_request_logs.csv`
-- `retention_outcomes.csv`
-- `artist_discovery_outcomes.csv`
 
 ---
 
